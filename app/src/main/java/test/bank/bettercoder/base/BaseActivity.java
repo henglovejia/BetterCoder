@@ -37,10 +37,6 @@ public class BaseActivity extends AppCompatActivity {
      * 请求失败，不显示异常页面
      */
     public static final int NO_EMPTY_VIEW = -1;
-    /**
-     * 请求失败，显示一个位于titlebar下，撑满屏幕的异常页面
-     */
-    public static final int FULL_EMPTY_VIEW = 0;
 
     private static final long LOADING_DISMISS_DELAY = 200;
     private static final int WHAT_DISMISS_LOADINGDIALOG = 0x1001;

@@ -1,7 +1,6 @@
 package test.bank.bettercoder.main.api;
 
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import test.bank.bettercoder.main.model.SubjectBean;
 import test.bank.bettercoder.main.model.SubjectModel;
