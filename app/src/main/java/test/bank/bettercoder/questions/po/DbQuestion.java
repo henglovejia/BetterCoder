@@ -1,4 +1,4 @@
-package test.bank.bettercoder.main.po;
+package test.bank.bettercoder.questions.po;
 
 import java.util.List;
 

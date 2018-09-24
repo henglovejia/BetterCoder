@@ -41,7 +41,7 @@ public class RequestManager {
         mClient = mClient.newBuilder()
                 .cookieJar(mCookieJar)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(level))
-                .connectTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .build();
         getRetrofit(BASE_HOST);
     }

@@ -3,4 +3,9 @@
     <string name="app_request_fail">Request failed,please retry later</string>
     <string name="app_request_error">Internet Error,please retry later</string>
     <string name="app_dialog_loading">Downloading &#8230;</string>
+    <string name="app_dialog_retry_msg">Request Fail！</string>
+    <string name="app_dialog_retry_positive_btn">Retry</string>
+    <string name="app_dialog_title_tips">Tips</string>
+    <string name="app_dialog_cancel">Cancel</string>
+    <string name="app_dialog_ok">OK</string>
 </resources>
