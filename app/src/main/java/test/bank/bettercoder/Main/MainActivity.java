@@ -1,5 +1,6 @@
 package test.bank.bettercoder.Main;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -16,6 +18,7 @@ import java.util.List;
 
 
 import test.bank.bettercoder.R;
+import test.bank.bettercoder.base.BcBaseApplication;
 import test.bank.bettercoder.personal.PersonalMainFragment;
 import test.bank.bettercoder.questions.QuestionMainFragment;
 
@@ -27,7 +30,7 @@ public class MainActivity extends FragmentActivity {
     private List<String> tabIndicators;
     private List<Fragment> tabFragments;
     private ContentPagerAdapter contentAdapter;
-
+    private Integer[] tabIcon = new Integer[]{R.drawable.btn_menu_fei,R.drawable.btn_menu_friend};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +52,21 @@ public class MainActivity extends FragmentActivity {
         for (int i = 0; i < tabIndicators.size(); i++) {
             TabLayout.Tab itemTab = mMenu.getTabAt(i);
             if (itemTab != null) {
-                itemTab.setCustomView(R.layout.item_tab_layout_custom);
+                itemTab.setCustomView(R.layout.item_menu_layout_custom);
                 TextView itemTv = (TextView) itemTab.getCustomView().findViewById(R.id.tv_menu_item);
                 itemTv.setText(tabIndicators.get(i));
+                ImageView itemIv = (ImageView) itemTab.getCustomView().findViewById(R.id.iv_menu_item);
+                itemIv.setImageResource(tabIcon[i]);
             }
         }
     }
 
     private void initContent() {
         tabIndicators = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            tabIndicators.add("Tab " + i);
+        Resources res = BcBaseApplication.sAppContext.getResources();
+        String[] simpleCountries = res.getStringArray(R.array.menu);
+        for (int i = 0; i < simpleCountries.length; i++) {
+            tabIndicators.add(simpleCountries[i]);
         }
         tabFragments = new ArrayList<>();
         tabFragments.add(new QuestionMainFragment());
