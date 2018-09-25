@@ -2,14 +2,20 @@ package test.bank.bettercoder.base;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -26,49 +32,136 @@ import test.bank.bettercoder.utils.request.SimpleCallBack;
 import test.bank.bettercoder.widget.MessageDialog;
 
 /**
- * Created by heng on 18/9/13
+ * Created by legend on 18/1/2.
  */
 
-public abstract class BcBaseFragment extends Fragment {
-    private String TAG = "BcBaseFragment";
+public abstract class BcBaseActivity extends FragmentActivity {
+    private View mRoot;
+    private FrameLayout fl_container;
+    private RelativeLayout rl_title_bar;
+    private TextView tv_title, tv_left1;
     private RLBaseHandler mParentHandler;
     public Dialog mRetryDialog;
-    protected View view;
     protected Map<SimpleCall, RetryCallInfo> mRetryCallMap = new HashMap<>();
+    public static final String ICON_BACK = "&#xe625;";
     /**
      * 请求失败，不显示异常页面
      */
     public static final int NO_EMPTY_VIEW = -1;
     private static final int WHAT_DISMISS_LOADING_DIALOG = 0x1001;
     private static final long LOADING_DISMISS_DELAY = 200;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initInternal();
-        view = inflater.inflate(chooseLayout(), container, false);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        mRoot = LayoutInflater.from(this).inflate(R.layout.base_activity_layout, null);
+        super.setContentView(mRoot);
         initView();
-        return view;
-    }
-
-    public abstract int chooseLayout();
-    public abstract void initView();
-    public abstract void initClickListener();
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initClickListener();
+        addViewToContent(layoutResID);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void setContentView(View view) {
+        mRoot = LayoutInflater.from(this)
+                .inflate(R.layout.base_activity_layout, null);
+        super.setContentView(mRoot);
+        initView();
+        addViewToContent(view);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        mRoot = LayoutInflater.from(this)
+                .inflate(R.layout.base_activity_layout, null);
+        super.setContentView(mRoot);
+        initView();
+        addViewToContent(view, params);
+    }
+
+    private void addViewToContent(View view, ViewGroup.LayoutParams params) {
+        fl_container.addView(view, params);
+    }
+
+    private void addViewToContent(int layoutResID) {
+        addViewToContent(LayoutInflater.from(this).inflate(layoutResID, null));
+    }
+
+    private void addViewToContent(View view) {
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        addViewToContent(view, params);
+    }
+
+    private void initView() {
+        rl_title_bar = (RelativeLayout) mRoot.findViewWithTag("rl_title_bar");
+        fl_container = (FrameLayout) mRoot.findViewWithTag("fl_container");
+        tv_title = (TextView) mRoot.findViewWithTag("tv_title");
+        tv_left1 = (TextView) mRoot.findViewWithTag("tv_left1");
+        setLeftText(ICON_BACK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    protected void setTitleString(String title) {
+        tv_title.setText(title);
+    }
+
+    protected void setTitleId(int id) {
+        setTitleString(getString(id));
+    }
+
+    protected void showTitleBar() {
+        rl_title_bar.setVisibility(View.VISIBLE);
+    }
+
+    protected void hideTitleBar() {
+        rl_title_bar.setVisibility(View.GONE);
+    }
+
+    /**
+     * 左边只有一个
+     *
+     * @param text 为""时隐藏
+     * @return 显示的TextView
+     */
+    protected TextView setLeftText(String text) {
+        if (isIcon(text)) {
+            setIconTypeface(tv_left1);
+            tv_left1.setText(getHtmlText(text));
+        } else {
+            tv_left1.setTypeface(Typeface.DEFAULT);
+            tv_left1.setText(text);
+        }
+        tv_left1.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
+        return tv_left1;
+    }
+
+    private boolean isIcon(String s) {
+        return s.length() == 8 && s.startsWith("&#") && s.endsWith(";");
+    }
+
+    protected TextView setIconTypeface(TextView tv) {
+        Typeface tf = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
+        tv.setTypeface(tf);
+        return tv;
+    }
+
+    private Spanned getHtmlText(String which) {
+        return Html.fromHtml(which);
+    }
+
+    private class RetryCallInfo {
+        SimpleCallBack callBack;
+        boolean cancelable;
+        int errorViewContainer;
     }
 
     /**
@@ -161,12 +254,6 @@ public abstract class BcBaseFragment extends Fragment {
         });
     }
 
-    private class RetryCallInfo {
-        SimpleCallBack callBack;
-        boolean cancelable;
-        int errorViewContainer;
-    }
-
     public <T> T getService(Class<T> service) {
         return RequestManager.create(BcBaseApplication.sAppContext).getService(service);
     }
@@ -191,7 +278,7 @@ public abstract class BcBaseFragment extends Fragment {
     }
 
     protected Dialog getRetryDialog(final DialogInterface.OnClickListener onButtonListener, DialogInterface.OnCancelListener onCancelListener) {
-        final MessageDialog dialog = new MessageDialog(MainActivity.sActivityContext);
+        final MessageDialog dialog = new MessageDialog(this);
         dialog.setMessage(R.string.app_dialog_retry_msg);
         dialog.setPositiveButton(R.string.app_dialog_retry_positive_btn);
         dialog.setOnButtonClickListener(new MessageDialog.OnButtonClickListener() {
@@ -227,15 +314,15 @@ public abstract class BcBaseFragment extends Fragment {
     }
 
     private static class RLBaseHandler extends Handler {
-        private WeakReference<BcBaseFragment> mOuter;
+        private WeakReference<BcBaseActivity> mOuter;
 
-        public RLBaseHandler(BcBaseFragment fragment) {
-            mOuter = new WeakReference<>(fragment);
+        public RLBaseHandler(BcBaseActivity activity) {
+            mOuter = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            BcBaseFragment outer = mOuter.get();
+            BcBaseActivity outer = mOuter.get();
             if (outer != null) {
                 if (msg.what == WHAT_DISMISS_LOADING_DIALOG) {// 避免请求框高频闪动
                     try {
@@ -247,5 +334,19 @@ public abstract class BcBaseFragment extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void finish() {
+        if (mRetryDialog.isShowing()) {
+            mRetryDialog.dismiss();
+        }
+        super.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRetryCallMap.clear();
     }
 }

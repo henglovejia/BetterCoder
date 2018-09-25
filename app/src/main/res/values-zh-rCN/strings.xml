@@ -7,4 +7,6 @@
     <string name="app_dialog_retry_positive_btn">重试</string>
     <string name="app_dialog_title_tips">温馨提示</string>
     <string name="app_dialog_cancel">取消</string>
+    <string name="app_dialog_ok">确定</string>
+    <string name="history_error_title">历史错题</string>
 </resources>

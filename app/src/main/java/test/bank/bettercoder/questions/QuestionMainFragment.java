@@ -1,11 +1,7 @@
 package test.bank.bettercoder.questions;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import test.bank.bettercoder.R;
@@ -17,21 +13,21 @@ import test.bank.bettercoder.questions.model.SubjectModel;
 
 public class QuestionMainFragment extends BcBaseFragment {
     private static String TAG = "QuestionMainActivity";
-    private Button Background;
+    private Button background;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.question_fragment_main, container, false);
-        Background = (Button)view.findViewById(R.id.Background);
-        return view;
+    public int chooseLayout() {
+        return R.layout.question_fragment_main;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Background.setOnClickListener(new View.OnClickListener() {
+    public void initView() {
+        background = (Button)view.findViewById(R.id.Background);
+    }
+
+    @Override
+    public void initClickListener() {
+        background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SubjectBean bean = new SubjectBean();

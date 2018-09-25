@@ -50,12 +50,12 @@ public abstract class BcBaseCallBack<T> implements SimpleCallBack<T> {
 
     @Override
     public void onFailure(Object o) {
-        ToastUtils.show(BcBaseApplication.sAppContext, R.string.app_request_fail);
+
     }
 
     @Override
     public void onError(Exception e) {
-        ToastUtils.show(BcBaseApplication.sAppContext, R.string.app_request_error);
+
     }
 
     /**
