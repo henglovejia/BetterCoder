@@ -1,19 +1,13 @@
 package test.bank.bettercoder.questions;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
 import test.bank.bettercoder.R;
-import test.bank.bettercoder.base.BcBaseCallBack;
 import test.bank.bettercoder.base.BcBaseFragment;
-import test.bank.bettercoder.questions.api.QuestionApi;
-import test.bank.bettercoder.questions.model.SubjectBean;
-import test.bank.bettercoder.questions.model.SubjectModel;
+import test.bank.bettercoder.widget.code.CodeView;
 
 public class QuestionMainFragment extends BcBaseFragment {
     private static String TAG = "QuestionMainActivity";
-    private Button background;
+    private CodeView codeView;
+    private String testJava="<pre class=\"brush\">public void getCustomerInfo() {\n &ensp;&ensp; &ensp;try {\n &ensp;&ensp; &ensp;} catch (java.io.FileNotFoundException ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;FileNotFoundException!&quot;);\n &ensp;&ensp; &ensp;} catch (java.io.IOException ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;IOException!&quot;);\n &ensp;&ensp; &ensp;} catch (java.lang.Exception ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;Exception!&quot;);\n &ensp;&ensp; &ensp;}\n }\n</pre>";
 
     @Override
     public int chooseLayout() {
@@ -22,22 +16,15 @@ public class QuestionMainFragment extends BcBaseFragment {
 
     @Override
     public void initView() {
-        background = (Button)view.findViewById(R.id.Background);
+        codeView = (CodeView) view.findViewById(R.id.codeView);
+    }
+
+    @Override
+    public void onStartInit() {
+        codeView.showCodeHtmlByCssSelect(testJava,".brush");
     }
 
     @Override
     public void initClickListener() {
-        background.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SubjectBean bean = new SubjectBean();
-                addRequest(getService(QuestionApi.class).getSubject(bean), new BcBaseCallBack<SubjectModel>() {
-                    @Override
-                    public void onSuccess200(SubjectModel body) {
-                        Log.d(TAG,body.valid_knowledge_subjects[0].getName());
-                    }
-                });
-            }
-        });
     }
 }

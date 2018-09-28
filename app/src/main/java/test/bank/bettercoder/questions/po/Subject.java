@@ -1,6 +1,5 @@
 package test.bank.bettercoder.questions.po;
 
-import test.bank.bettercoder.base.BcBaseBean;
 import test.bank.bettercoder.base.BcBaseModel;
 
 /**

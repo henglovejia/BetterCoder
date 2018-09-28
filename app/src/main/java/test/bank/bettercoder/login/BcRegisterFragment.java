@@ -18,6 +18,11 @@ public class BcRegisterFragment extends BcBaseFragment {
     }
 
     @Override
+    public void onStartInit() {
+
+    }
+
+    @Override
     public void initClickListener() {
 
     }

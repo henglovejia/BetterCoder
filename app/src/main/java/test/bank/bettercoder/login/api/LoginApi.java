@@ -13,8 +13,8 @@ import test.bank.bettercoder.utils.request.SimpleCall;
 
 public interface LoginApi {
     //登录
-    @POST("doLogin")
-    SimpleCall<BcBaseModel> doLogin();
+    @POST("BetterCoder/controller/AndroidUserService/loginSession")
+    SimpleCall<LoginModel> doLoginSession(@Body LoginBean bean);
     //注册
     @POST("doRegist")
     SimpleCall<BcBaseModel> doRegist();
@@ -24,10 +24,4 @@ public interface LoginApi {
     //登出
     @POST("doLogout")
     SimpleCall<BcBaseModel> doLogout();
-
-    @POST("/tc/getLoginState/")
-    SimpleCall<LoginModel> doLogin(@Body LoginBean model);
-
-    @POST("/tc/apiv1/")
-    SimpleCall<LoginModel> getPassword(@Body LoginBean model);
 }

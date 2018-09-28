@@ -5,9 +5,9 @@ package test.bank.bettercoder.login.model;
  */
 
 public class LoginBean {
-    public String apiName;
-    public String username;
-    public String password;
-    public LoginBean (){
+    String subject,userUuid;
+    public LoginBean (String subject,String userUuid){
+        this.subject = subject;
+        this.userUuid = userUuid;
     }
 }

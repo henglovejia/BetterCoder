@@ -33,4 +33,5 @@
     <color name="bc_widget">#E8EFFE</color>
     <color name="bc_blue">#9ABAFC</color>
     <color name="menu">#F0FFFF</color>
+    <color name="question_bc">#FFF3D0</color>
 </resources>

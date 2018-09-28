@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/question_bc"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <Button
-        android:layout_width="wrap_content"
+    <test.bank.bettercoder.widget.code.CodeView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Background"
-        android:onClick="Background"
-        android:text="后台请求"/>
-
+        android:background="@color/question_bc"
+        android:layout_margin="20dp"
+        android:id="@+id/codeView"/>
 </LinearLayout>

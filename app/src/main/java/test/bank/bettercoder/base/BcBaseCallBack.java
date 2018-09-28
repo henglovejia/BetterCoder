@@ -24,8 +24,8 @@ public abstract class BcBaseCallBack<T> implements SimpleCallBack<T> {
             if ("0".equals(m.returnCode) || "1".equals(m.returnCode)) {// 请求处理成功
                 onSuccess200(t);
             } else if ("-1".equals(m.returnCode)) {// todo 登录超时
-                LoginBean bean = new LoginBean();
-                RequestManager.create(BcBaseApplication.sAppContext).addRequest(RequestManager.create(BcBaseApplication.sAppContext).getService(LoginApi.class).doLogin(bean),null,null);
+                LoginBean bean = new LoginBean("java", "b2e4b5b0-41a0-43cc-86c6-a54c46a0c899");
+                RequestManager.create(BcBaseApplication.sAppContext).addRequest(RequestManager.create(BcBaseApplication.sAppContext).getService(LoginApi.class).doLoginSession(bean),null,null);
             } else {
                 ToastUtils.show(BcBaseApplication.sAppContext, m.returnMsg);
             }

@@ -21,6 +21,11 @@ public class BcLoginFragment extends BcBaseFragment {
     }
 
     @Override
+    public void onStartInit() {
+
+    }
+
+    @Override
     public void initClickListener() {
 
     }

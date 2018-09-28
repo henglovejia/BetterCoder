@@ -5,6 +5,6 @@
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="跳转到Activity"
-    android:id="@+id/jump"/>
+    android:text="用户登陆"
+    android:id="@+id/login"/>
 </LinearLayout>

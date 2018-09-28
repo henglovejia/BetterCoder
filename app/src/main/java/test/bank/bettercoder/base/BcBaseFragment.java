@@ -53,6 +53,7 @@ public abstract class BcBaseFragment extends Fragment {
 
     public abstract int chooseLayout();
     public abstract void initView();
+    public abstract void onStartInit();
     public abstract void initClickListener();
 
     @Override
@@ -64,6 +65,7 @@ public abstract class BcBaseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        onStartInit();
     }
 
     @Override
