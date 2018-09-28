@@ -33,4 +33,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation 'org.jsoup:jsoup:1.9.2'
+    implementation 'com.android.support:design:26.0.2'
 }
