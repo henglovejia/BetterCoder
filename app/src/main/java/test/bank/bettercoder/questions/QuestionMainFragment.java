@@ -39,7 +39,7 @@ public class QuestionMainFragment extends BcBaseFragment {
             @Override
             public void onClick(View v) {
                 if (BcBaseApplication.continueExercise) {
-                    addRequest(getService(QuestionApi.class).getQuestions(new QuestionBean()), new BcBaseCallBack<QuestionModel>() {
+                    addRequest(getService(QuestionApi.class).continueQuestions(new QuestionBean()), new BcBaseCallBack<QuestionModel>() {
                         @Override
                         public void onSuccess200(QuestionModel model) {
                             codeView.showCodeHtmlByCssSelect(model.number + "、" + model.questions.get(0).getqContent().getHtmlContent(), ".brush");

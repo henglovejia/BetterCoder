@@ -9,8 +9,10 @@ import test.bank.bettercoder.questions.model.SubjectModel;
 import test.bank.bettercoder.utils.request.SimpleCall;
 
 public interface QuestionApi {
-    @POST("BetterCoder/controller/WechatQuestionService/initSubject")
+    @POST("BetterCoder/controller/QuestionService/initSubject")
     SimpleCall<SubjectModel> getSubject(@Body SubjectBean bean);
-    @POST("BetterCoder/controller/WechatQuestionService/continueExercise")
-    SimpleCall<QuestionModel> getQuestions(@Body QuestionBean bean);
+    @POST("BetterCoder/controller/QuestionService/continueExercise")
+    SimpleCall<QuestionModel> continueQuestions(@Body QuestionBean bean);
+    @POST("BetterCoder/controller/QuestionService/startExercise")
+    SimpleCall<QuestionModel> startQuestions(@Body QuestionBean bean);
 }
