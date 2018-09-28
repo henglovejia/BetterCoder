@@ -8,5 +8,5 @@ import test.bank.bettercoder.base.BcBaseModel;
  * @author yerunjie
  */
 public class LoginModel extends BcBaseModel {
-    boolean isContinue;
+    public boolean isContinue;
 }

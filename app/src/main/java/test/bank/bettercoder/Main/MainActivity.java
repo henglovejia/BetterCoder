@@ -4,13 +4,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -18,12 +18,17 @@ import java.util.List;
 
 
 import test.bank.bettercoder.R;
+import test.bank.bettercoder.base.BcBaseActivity;
 import test.bank.bettercoder.base.BcBaseApplication;
+import test.bank.bettercoder.base.BcBaseCallBack;
+import test.bank.bettercoder.login.api.LoginApi;
+import test.bank.bettercoder.login.model.LoginBean;
+import test.bank.bettercoder.login.model.LoginModel;
 import test.bank.bettercoder.personal.PersonalMainFragment;
 import test.bank.bettercoder.questions.QuestionMainFragment;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BcBaseActivity {
     public static MainActivity sActivityContext;
     private TabLayout mMenu;
     private ViewPager mContent;
@@ -95,5 +100,17 @@ public class MainActivity extends FragmentActivity {
         public CharSequence getPageTitle(int position) {
             return tabIndicators.get(position);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addRequest(getService(LoginApi.class).doLoginSession(new LoginBean("java", "b2e4b5b0-41a0-43cc-86c6-a54c46a0c899")), new BcBaseCallBack<LoginModel>() {
+            @Override
+            public void onSuccess200(LoginModel loginModel) {
+                Toast.makeText(MainActivity.this,loginModel.returnMsg,Toast.LENGTH_LONG).show();
+                BcBaseApplication.continueExercise = loginModel.isContinue;
+            }
+        });
     }
 }

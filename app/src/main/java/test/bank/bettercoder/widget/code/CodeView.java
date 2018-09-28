@@ -261,8 +261,8 @@ public class CodeView extends WebView {
         loadDataWithBaseURL(baseUrl, document.html(), "text/html", encode, historyUrl);
     }
 
-    private void documentInit(String loaclHtml) {
-        this.document = Jsoup.parse(loaclHtml);
+    private void documentInit(String localHtml) {
+        this.document = Jsoup.parse(localHtml);
         document.head().append("\n<script src=\"file:///android_asset/highlight/highlight.pack.js\"></script>\n");
         document.head().append("\n<script>hljs.initHighlightingOnLoad();</script>\n");
         document.head().append(createStyle());

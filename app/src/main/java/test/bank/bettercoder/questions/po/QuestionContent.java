@@ -105,7 +105,7 @@ public class QuestionContent {
 	}
 
 	public String getHtmlContent() {
-		return htmlContent;
+		return htmlContent.replace("brush: java;","brush");
 	}
 
 	public void setHtmlContent(String htmlContent) {

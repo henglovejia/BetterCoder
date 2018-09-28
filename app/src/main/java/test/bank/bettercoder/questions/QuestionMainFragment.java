@@ -1,13 +1,22 @@
 package test.bank.bettercoder.questions;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
 import test.bank.bettercoder.R;
+import test.bank.bettercoder.base.BcBaseApplication;
+import test.bank.bettercoder.base.BcBaseCallBack;
 import test.bank.bettercoder.base.BcBaseFragment;
+import test.bank.bettercoder.questions.api.QuestionApi;
+import test.bank.bettercoder.questions.model.QuestionBean;
+import test.bank.bettercoder.questions.model.QuestionModel;
 import test.bank.bettercoder.widget.code.CodeView;
 
 public class QuestionMainFragment extends BcBaseFragment {
     private static String TAG = "QuestionMainActivity";
     private CodeView codeView;
-    private String testJava="<pre class=\"brush\">public void getCustomerInfo() {\n &ensp;&ensp; &ensp;try {\n &ensp;&ensp; &ensp;} catch (java.io.FileNotFoundException ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;FileNotFoundException!&quot;);\n &ensp;&ensp; &ensp;} catch (java.io.IOException ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;IOException!&quot;);\n &ensp;&ensp; &ensp;} catch (java.lang.Exception ex) {\n &ensp;&ensp; &ensp;&ensp;&ensp; &ensp;System.out.print(&quot;Exception!&quot;);\n &ensp;&ensp; &ensp;}\n }\n</pre>";
+    private Button bt_get_question;
 
     @Override
     public int chooseLayout() {
@@ -17,14 +26,27 @@ public class QuestionMainFragment extends BcBaseFragment {
     @Override
     public void initView() {
         codeView = (CodeView) view.findViewById(R.id.codeView);
+        bt_get_question = (Button) view.findViewById(R.id.bt_get_question);
     }
 
     @Override
     public void onStartInit() {
-        codeView.showCodeHtmlByCssSelect(testJava,".brush");
     }
 
     @Override
     public void initClickListener() {
+        bt_get_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BcBaseApplication.continueExercise) {
+                    addRequest(getService(QuestionApi.class).getQuestions(new QuestionBean()), new BcBaseCallBack<QuestionModel>() {
+                        @Override
+                        public void onSuccess200(QuestionModel model) {
+                            codeView.showCodeHtmlByCssSelect(model.number + "、" + model.questions.get(0).getqContent().getHtmlContent(), ".brush");
+                        }
+                    });
+                }
+            }
+        });
     }
 }
