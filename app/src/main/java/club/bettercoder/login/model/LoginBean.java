@@ -5,9 +5,8 @@ package club.bettercoder.login.model;
  */
 
 public class LoginBean {
-    String subject,userUuid;
-    public LoginBean (String subject,String userUuid){
-        this.subject = subject;
+    String userUuid;
+    public LoginBean (String userUuid){
         this.userUuid = userUuid;
     }
 }

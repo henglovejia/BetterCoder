@@ -9,4 +9,5 @@
     <string name="app_dialog_cancel">取消</string>
     <string name="app_dialog_ok">确定</string>
     <string name="history_error_title">历史错题</string>
+    <string name="sign">登陆</string>
 </resources>

@@ -27,7 +27,9 @@ public class RequestManager {
     private OkHttpClient mClient;
     private PersistentCookieJar mCookieJar;
     private Map<String, Retrofit> mRetrofitMap = new HashMap<>();
-    private static final String BASE_HOST = "https://wechat.bettercoder.club";
+    //    private static final String BASE_HOST = "http://192.168.31.84:8080";
+    private static final String BASE_HOST = "https://wechat.bettercoder.club/";
+    private static int DEFAULT_NETWORK_TIMEOUT = 5;
 
     private RequestManager(Context context) {
         mContext = context;
@@ -41,7 +43,9 @@ public class RequestManager {
         mClient = mClient.newBuilder()
                 .cookieJar(mCookieJar)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(level))
-                .connectTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(DEFAULT_NETWORK_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(DEFAULT_NETWORK_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(DEFAULT_NETWORK_TIMEOUT, TimeUnit.SECONDS)
                 .build();
         getRetrofit(BASE_HOST);
     }

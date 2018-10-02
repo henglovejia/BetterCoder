@@ -41,7 +41,7 @@ public class MessageDialog extends Dialog {
 
     public MessageDialog(Context context) {
         super(context, R.style.recommend_dialog);
-        setContentView(R.layout.widget_dialog_message);
+        setContentView(R.layout.module_dialog_widget_message);
         init();
     }
 

@@ -2,10 +2,10 @@ package club.bettercoder.questions.model;
 
 import java.util.List;
 
-import club.bettercoder.base.BcBaseModel;
+import club.bettercoder.base.BaseModel;
 import club.bettercoder.questions.po.DbQuestion;
 
-public class QuestionModel extends BcBaseModel {
+public class QuestionModel extends BaseModel {
     public List<DbQuestion> questions;
     public Integer totalNum;
     public Integer number;

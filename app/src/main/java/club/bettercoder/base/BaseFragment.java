@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import club.bettercoder.Main.MainActivity;
+import club.bettercoder.main.MainActivity;
 import club.bettercoder.R;
 import club.bettercoder.utils.request.RequestManager;
 import club.bettercoder.utils.request.RequestStateListener;
@@ -29,7 +29,7 @@ import club.bettercoder.widget.MessageDialog;
  * Created by heng on 18/9/13
  */
 
-public abstract class BcBaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     private String TAG = "BcBaseFragment";
     private RLBaseHandler mParentHandler;
     public Dialog mRetryDialog;
@@ -135,7 +135,7 @@ public abstract class BcBaseFragment extends Fragment {
      */
     public void addRequest(final SimpleCall call, final SimpleCallBack callBack, final boolean isForeground,
                            final boolean cancelable, final boolean needRetry, final int errorViewContainer) {
-        RequestManager.create(BcBaseApplication.sAppContext).addRequest(call, callBack, new RequestStateListener() {
+        RequestManager.create(BaseApplication.sAppContext).addRequest(call, callBack, new RequestStateListener() {
             @Override
             public void onStart() {
                 refreshDialogState();
@@ -173,7 +173,7 @@ public abstract class BcBaseFragment extends Fragment {
     }
 
     public <T> T getService(Class<T> service) {
-        return RequestManager.create(BcBaseApplication.sAppContext).getService(service);
+        return RequestManager.create(BaseApplication.sAppContext).getService(service);
     }
 
     private void initInternal() {
@@ -233,15 +233,15 @@ public abstract class BcBaseFragment extends Fragment {
     }
 
     private static class RLBaseHandler extends Handler {
-        private WeakReference<BcBaseFragment> mOuter;
+        private WeakReference<BaseFragment> mOuter;
 
-        public RLBaseHandler(BcBaseFragment fragment) {
+        public RLBaseHandler(BaseFragment fragment) {
             mOuter = new WeakReference<>(fragment);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            BcBaseFragment outer = mOuter.get();
+            BaseFragment outer = mOuter.get();
             if (outer != null) {
                 if (msg.what == WHAT_DISMISS_LOADING_DIALOG) {// 避免请求框高频闪动
                     try {

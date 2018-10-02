@@ -1,17 +1,12 @@
 package club.bettercoder.questions.po;
 
-import club.bettercoder.base.BcBaseModel;
-
 /**
  * 学科类
  * @author Tom
  *
  */
-public class Subject extends BcBaseModel{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3589336263062732997L;
+public class Subject {
+
 	private int id;
 	private int innerOrder;
 	private String name;

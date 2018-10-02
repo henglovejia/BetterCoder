@@ -21,7 +21,7 @@ public final class ErrorHandlingCallAdapter {
 
     public static class ErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
         @Override
-        public CallAdapter<SimpleCall<?>> get(Type returnType, Annotation[] annotations,
+        public CallAdapter<SimpleCall<?>,Object> get(Type returnType, Annotation[] annotations,
                                               Retrofit retrofit) {
             if (getRawType(returnType) != SimpleCall.class) {
                 return null;
@@ -31,14 +31,14 @@ public final class ErrorHandlingCallAdapter {
                         "MyCall must have generic type (e.g., MyCall<ResponseBody>)");
             }
             final Type responseType = getParameterUpperBound(0, (ParameterizedType) returnType);
-            return new CallAdapter<SimpleCall<?>>() {
+            return new CallAdapter<SimpleCall<?>, Object>() {
                 @Override
                 public Type responseType() {
                     return responseType;
                 }
 
                 @Override
-                public <R> SimpleCall<R> adapt(Call<R> call) {
+                public Object adapt(Call<SimpleCall<?>> call) {
                     return new MyCallAdapter<>(call);
                 }
             };

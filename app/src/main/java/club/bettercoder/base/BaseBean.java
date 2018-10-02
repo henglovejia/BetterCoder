@@ -1,4 +1,4 @@
 package club.bettercoder.base;
 
-public class BcBaseBean {
+public class BaseBean {
 }

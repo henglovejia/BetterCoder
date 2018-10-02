@@ -1,4 +1,4 @@
-package club.bettercoder.wxapi;
+package club.bettercoder.login.wxapi;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +10,15 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import club.bettercoder.base.BcBaseActivity;
+import club.bettercoder.base.BaseActivity;
+import club.bettercoder.base.BaseCallBack;
+import club.bettercoder.login.api.LoginApi;
+import club.bettercoder.login.model.LoginBean;
+import club.bettercoder.login.model.LoginModel;
 
-import static club.bettercoder.base.BcBaseContent.APP_ID;
+import static club.bettercoder.base.BaseContent.APP_ID;
 
-public class WXEntryActivity extends BcBaseActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     private static String TAG = "WXEntryActivity";
 
     @Override
@@ -36,6 +40,12 @@ public class WXEntryActivity extends BcBaseActivity implements IWXAPIEventHandle
                 String code = ((SendAuth.Resp) baseResp).code;
                 //获取用户信息
                 Log.d(TAG, code);
+                addRequest(getService(LoginApi.class).doLoginSession(new LoginBean(code)), new BaseCallBack<LoginModel>() {
+                    @Override
+                    public void onSuccess200(LoginModel model) {
+
+                    }
+                });
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED://用户拒绝授权
                 finish();

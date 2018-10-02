@@ -14,6 +14,20 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.android.support:support-annotations:27.1.1'
     }
+    signingConfigs {
+        release {
+            storeFile file('../BetterCoder.jks')
+            storePassword 'bettercoder123'
+            keyAlias 'bettercoder'
+            keyPassword 'bettercoder'
+        }
+        debug {
+            storeFile file('../BetterCoder.jks')
+            storePassword "bettercoder123"
+            keyAlias "bettercoder"
+            keyPassword "bettercoder"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -29,8 +43,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation 'org.jsoup:jsoup:1.9.2'

@@ -1,8 +1,9 @@
 package club.bettercoder.login.api;
 
+import club.bettercoder.base.BaseBean;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-import club.bettercoder.base.BcBaseModel;
+import club.bettercoder.base.BaseModel;
 import club.bettercoder.login.model.LoginBean;
 import club.bettercoder.login.model.LoginModel;
 import club.bettercoder.utils.request.SimpleCall;
@@ -13,15 +14,17 @@ import club.bettercoder.utils.request.SimpleCall;
 
 public interface LoginApi {
     //登录
-    @POST("BetterCoder/controller/AndroidUserService/loginSession")
+    @POST("/BetterCoder/controller/AndroidUserService/loginSession")
     SimpleCall<LoginModel> doLoginSession(@Body LoginBean bean);
     //注册
     @POST("doRegist")
-    SimpleCall<BcBaseModel> doRegist();
+    SimpleCall<BaseModel> doRegist();
     //修改密码
     @POST("doModify")
-    SimpleCall<BcBaseModel> doModify();
+    SimpleCall<BaseModel> doModify();
     //登出
     @POST("doLogout")
-    SimpleCall<BcBaseModel> doLogout();
+    SimpleCall<BaseModel> doLogout();
+    @POST("/")
+    SimpleCall<BaseModel> doTest(@Body BaseBean baseBean);
 }

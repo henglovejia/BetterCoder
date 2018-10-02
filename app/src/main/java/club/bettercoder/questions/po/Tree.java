@@ -1,141 +1,177 @@
 package club.bettercoder.questions.po;
 
-public class Tree{
-	private int id;
-	private String knowledgeUuid;
-	private String resourceUuid;
-	private String parent;
-	private String text;
-	private int topic;
-	private String subject;
-	private String version;
-	private String grade;
-	private String term;
-	private String phase;
-	private String area;
-	private String remark;
-	private int level;
-	private String examQuestions;//questionuuid串，school用
-	
-	public int getId() {
-		return id;
-	}
+import android.support.annotation.NonNull;
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public String getKnowledgeUuid() {
-		return knowledgeUuid;
-	}
+public class Tree {
+    private String id;
+    private String knowledgeUuid;
+    private String resourceUuid;
+    private String parent;
+    private String text;
+    private int topic;
+    private String subject;
+    private String version;
+    private String grade;
+    private String term;
+    private String phase;
+    private String area;
+    private String remark;
+    private int level;
+    private String examQuestions;//questionuuid串，school用
+    private boolean expanded = false;
+    private boolean selected = false;
+    private int selectedChild = 0;
 
-	public void setKnowledgeUuid(String knowledgeUuid) {
-		this.knowledgeUuid = knowledgeUuid;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getResourceUuid() {
-		return resourceUuid;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setResourceUuid(String resourceUuid) {
-		this.resourceUuid = resourceUuid;
-	}
+    public String getKnowledgeUuid() {
+        return knowledgeUuid;
+    }
 
-	public String getParent() {
-		return parent;
-	}
+    public void setKnowledgeUuid(String knowledgeUuid) {
+        this.knowledgeUuid = knowledgeUuid;
+    }
 
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
+    public String getResourceUuid() {
+        return resourceUuid;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public void setResourceUuid(String resourceUuid) {
+        this.resourceUuid = resourceUuid;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public String getParent() {
+        return parent;
+    }
 
-	public int getTopic() {
-		return topic;
-	}
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
 
-	public void setTopic(int topic) {
-		this.topic = topic;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    public int getTopic() {
+        return topic;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public void setTopic(int topic) {
+        this.topic = topic;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public String getGrade() {
-		return grade;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public String getTerm() {
-		return term;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public void setTerm(String term) {
-		this.term = term;
-	}
+    public String getGrade() {
+        return grade;
+    }
 
-	public String getPhase() {
-		return phase;
-	}
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
+    public String getTerm() {
+        return term;
+    }
 
-	public String getArea() {
-		return area;
-	}
+    public void setTerm(String term) {
+        this.term = term;
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
+    public String getPhase() {
+        return phase;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public int getLevel() {
-		return level;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public String getExamQuestions() {
-		return examQuestions;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public void setExamQuestions(String examQuestions) {
-		this.examQuestions = examQuestions;
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(String examQuestions) {
+        this.examQuestions = examQuestions;
+    }
+
+    public boolean isHasChild() {
+        return level < 3;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public void addOrDelSelectChild(boolean isSelect) {
+        if (isSelect) {
+            selectedChild++;
+        } else {
+            selectedChild--;
+        }
+    }
+
+    public boolean hasSelectedChild() {
+        return selectedChild > 0;
+    }
 }

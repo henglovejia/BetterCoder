@@ -15,18 +15,18 @@ import club.bettercoder.utils.request.SimpleCallBack;
  * Created by heng on 18/9/13.
  */
 
-public abstract class BcBaseCallBack<T> implements SimpleCallBack<T> {
+public abstract class BaseCallBack<T> implements SimpleCallBack<T> {
     @Override
     public void onSuccess(T t) {
-        if (t instanceof BcBaseModel) {
-            BcBaseModel m = (BcBaseModel) t;
+        if (t instanceof BaseModel) {
+            BaseModel m = (BaseModel) t;
             if ("0".equals(m.returnCode) || "1".equals(m.returnCode)) {// 请求处理成功
                 onSuccess200(t);
-            } else if ("-1".equals(m.returnCode)) {// todo 登录超时
-                LoginBean bean = new LoginBean("java", "b2e4b5b0-41a0-43cc-86c6-a54c46a0c899");
-                RequestManager.create(BcBaseApplication.sAppContext).addRequest(RequestManager.create(BcBaseApplication.sAppContext).getService(LoginApi.class).doLoginSession(bean), null, null);
+            } else if ("-1".equals(m.returnCode)) {
+                LoginBean bean = new LoginBean("b2e4b5b0-41a0-43cc-86c6-a54c46a0c899");
+                RequestManager.create(BaseApplication.sAppContext).addRequest(RequestManager.create(BaseApplication.sAppContext).getService(LoginApi.class).doLoginSession(bean), null, null);
             } else {
-                ToastUtils.show(BcBaseApplication.sAppContext, m.returnMsg);
+                ToastUtils.show(BaseApplication.sAppContext, m.returnMsg);
             }
         } else if (t instanceof JSONObject) {
             JSONObject jo = (JSONObject) t;
@@ -41,7 +41,7 @@ public abstract class BcBaseCallBack<T> implements SimpleCallBack<T> {
             if ("success".equals(status)) {
                 onSuccess200(t);
             } else if (!TextUtils.isEmpty(msg)) {
-                ToastUtils.show(BcBaseApplication.sAppContext, msg);
+                ToastUtils.show(BaseApplication.sAppContext, msg);
             }
         }
         onFinish(t);

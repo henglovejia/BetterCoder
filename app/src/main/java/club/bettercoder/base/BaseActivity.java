@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import club.bettercoder.Main.MainActivity;
 import club.bettercoder.R;
 import club.bettercoder.utils.request.RequestManager;
 import club.bettercoder.utils.request.RequestStateListener;
@@ -35,7 +34,7 @@ import club.bettercoder.widget.MessageDialog;
  * Created by legend on 18/1/2.
  */
 
-public abstract class BcBaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity {
     private View mRoot;
     private FrameLayout fl_container;
     private RelativeLayout rl_title_bar;
@@ -59,7 +58,7 @@ public abstract class BcBaseActivity extends FragmentActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        mRoot = LayoutInflater.from(this).inflate(R.layout.base_activity_layout, null);
+        mRoot = LayoutInflater.from(this).inflate(R.layout.module_activity_base, null);
         super.setContentView(mRoot);
         initView();
         addViewToContent(layoutResID);
@@ -68,7 +67,7 @@ public abstract class BcBaseActivity extends FragmentActivity {
     @Override
     public void setContentView(View view) {
         mRoot = LayoutInflater.from(this)
-                .inflate(R.layout.base_activity_layout, null);
+                .inflate(R.layout.module_activity_base, null);
         super.setContentView(mRoot);
         initView();
         addViewToContent(view);
@@ -77,7 +76,7 @@ public abstract class BcBaseActivity extends FragmentActivity {
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         mRoot = LayoutInflater.from(this)
-                .inflate(R.layout.base_activity_layout, null);
+                .inflate(R.layout.module_activity_base, null);
         super.setContentView(mRoot);
         initView();
         addViewToContent(view, params);
@@ -125,6 +124,10 @@ public abstract class BcBaseActivity extends FragmentActivity {
 
     protected void hideTitleBar() {
         rl_title_bar.setVisibility(View.GONE);
+    }
+
+    protected void hideLeft() {
+        tv_left1.setVisibility(View.GONE);
     }
 
     /**
@@ -224,7 +227,7 @@ public abstract class BcBaseActivity extends FragmentActivity {
      */
     public void addRequest(final SimpleCall call, final SimpleCallBack callBack, final boolean isForeground,
                            final boolean cancelable, final boolean needRetry, final int errorViewContainer) {
-        RequestManager.create(BcBaseApplication.sAppContext).addRequest(call, callBack, new RequestStateListener() {
+        RequestManager.create(BaseApplication.sAppContext).addRequest(call, callBack, new RequestStateListener() {
             @Override
             public void onStart() {
                 refreshDialogState();
@@ -256,7 +259,7 @@ public abstract class BcBaseActivity extends FragmentActivity {
     }
 
     public <T> T getService(Class<T> service) {
-        return RequestManager.create(BcBaseApplication.sAppContext).getService(service);
+        return RequestManager.create(BaseApplication.sAppContext).getService(service);
     }
 
     private void initInternal() {
@@ -316,15 +319,15 @@ public abstract class BcBaseActivity extends FragmentActivity {
     }
 
     private static class RLBaseHandler extends Handler {
-        private WeakReference<BcBaseActivity> mOuter;
+        private WeakReference<BaseActivity> mOuter;
 
-        public RLBaseHandler(BcBaseActivity activity) {
+        public RLBaseHandler(BaseActivity activity) {
             mOuter = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            BcBaseActivity outer = mOuter.get();
+            BaseActivity outer = mOuter.get();
             if (outer != null) {
                 if (msg.what == WHAT_DISMISS_LOADING_DIALOG) {// 避免请求框高频闪动
                     try {
