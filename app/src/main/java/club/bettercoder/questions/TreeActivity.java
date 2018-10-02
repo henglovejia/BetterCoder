@@ -6,7 +6,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import club.bettercoder.R;
@@ -21,14 +21,10 @@ import club.bettercoder.questions.po.Tree;
 public class TreeActivity extends BaseActivity {
     private TreeAdapter treeAdapter = null;
     private ListView treeListVew = null;
-    /**
-     * 当前所显示的目录列表
-     */
+    //当前所显示的目录列表
     private List<Tree> treeShowList = new ArrayList<>();
-    /**
-     * 所有的目录列表
-     */
-    private List<Tree> treeList = new ArrayList<>();
+    //各级目录列表,以parent为键
+    private HashMap<String, ArrayList<Tree>> level2List, level3List;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +41,31 @@ public class TreeActivity extends BaseActivity {
         addRequest(getService(QuestionApi.class).getTrees(new TreeBean()), new BaseCallBack<TreeModel>() {
             @Override
             public void onSuccess200(TreeModel model) {
-                treeList = model.trees;
-                for (Tree tree : treeList) {
-                    if (tree.getLevel() == 1) {
-                        treeShowList.add(tree);
+                level2List = new HashMap<>();
+                level3List = new HashMap<>();
+                for (Tree tree : model.trees) {
+                    switch (tree.getLevel()) {
+                        case 1:
+                            treeShowList.add(tree);
+                            break;
+                        case 2:
+                            if (level2List.containsKey(tree.getParent())) {
+                                level2List.get(tree.getParent()).add(tree);
+                            } else {
+                                ArrayList<Tree> tmp = new ArrayList<>();
+                                tmp.add(tree);
+                                level2List.put(tree.getParent(), tmp);
+                            }
+                            break;
+                        case 3:
+                            if (level3List.containsKey(tree.getParent())) {
+                                level3List.get(tree.getParent()).add(tree);
+                            } else {
+                                ArrayList<Tree> tmp = new ArrayList<>();
+                                tmp.add(tree);
+                                level3List.put(tree.getParent(), tmp);
+                            }
+                            break;
                     }
                 }
                 treeAdapter.notifyDataSetChanged();
@@ -61,7 +78,7 @@ public class TreeActivity extends BaseActivity {
         treeListVew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!treeShowList.get(position).isHasChild()) {// 没有子节点
+                if (!treeShowList.get(position).isHasChild()) {// 叶子节点
                     treeShowList.get(position).setSelected(!treeShowList.get(position).isSelected());
                     for (int i = position - 1; i > -1; i--) {
                         if (treeShowList.get(position).getParent().equals(treeShowList.get(i).getId())) {
@@ -83,40 +100,23 @@ public class TreeActivity extends BaseActivity {
                 } else {// 关闭状态,点击打开
                     treeShowList.get(position).setExpanded(true);
                     List<Tree> temp = new ArrayList<>();
-                    for (Tree mt : treeList) {
-                        if (mt.getParent().equals(treeShowList.get(position).getId())) {
-                            temp.add(mt);
-                            if (mt.hasSelectedChild()) {
-                                mt.setExpanded(true);
-                            } else {
-                                mt.setExpanded(false);
-                            }
-                        }
-                        for (int i = 0; i < temp.size(); i++) {
-//                            if (temp.get(i).isExpanded() && mt.getParent().equals(temp.get(i).getId())) {
-//                                for (int j = i; j < temp.size(); j++) {
-//                                    if (!(mt.getParent().equals(temp.get(j).getParent()) || mt.getParent().equals(temp.get(j).getId()))) {
-//                                        temp.add(j, mt);
-//                                        break;
-//                                    }
-//                                    if (j == temp.size() - 1) {
-//                                        temp.add(mt);
-//                                        break;
-//                                    }
-//                                }
-//                            }
-                            if (temp.get(i).isExpanded()) {
-                                for (int j = 0; j < treeList.size(); j++) {
-                                    if (treeList.get(j).getParent().equals(temp.get(i).getId())) {
-                                        temp.add(treeList.get(j));
-                                    }
+                    switch (treeShowList.get(position).getLevel()) {
+                        case 1:
+                            for (Tree tree : level2List.get(treeShowList.get(position).getId())) {
+                                temp.add(tree);
+                                if (tree.hasSelectedChild()) {
+                                    tree.setExpanded(true);
+                                    temp.addAll(level3List.get(tree.getId()));
+                                } else {
+                                    tree.setExpanded(false);
                                 }
                             }
-                        }
+                            break;
+                        case 2:
+                            temp.addAll(level3List.get(treeShowList.get(position).getId()));
+                            break;
                     }
-                    for (int i = 0; i < temp.size(); i++) {
-                        treeShowList.add(position + i + 1, temp.get(i));
-                    }
+                    treeShowList.addAll(position + 1, temp);
                 }
                 treeAdapter.notifyDataSetChanged();
             }
