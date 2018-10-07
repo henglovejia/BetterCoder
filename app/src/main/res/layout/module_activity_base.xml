@@ -9,6 +9,8 @@
         android:id="@+id/rl_title_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@color/bc_blue"
         android:gravity="bottom"
         android:tag="rl_title_bar">
@@ -23,21 +25,33 @@
             android:tag="tv_left1"
             android:textColor="#ffffff"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginTop="0dp"
             android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
             android:tag="tv_title"
             android:textColor="#ffffff"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="25sp" />
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:indeterminateTint="#ffffff"
+            android:layout_marginTop="5dp"
+            android:tag="pb_loading"
+            android:visibility="gone"
+            android:layout_toEndOf="@+id/tv_title"
+            android:gravity="center" />
 
     </RelativeLayout>
 
@@ -53,6 +67,6 @@
         android:layout_height="match_parent"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@id/rl_title_bar"
-        android:tag="fl_container"></FrameLayout>
+        android:tag="fl_container" />
 
 </RelativeLayout>

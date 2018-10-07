@@ -34,7 +34,6 @@ public class TreeActivity extends BaseActivity {
         initData();
         treeAdapter = new TreeAdapter(this, R.layout.module_list_item_tree, treeShowList);
         treeListVew.setAdapter(treeAdapter);
-
     }
 
     public void initData() {

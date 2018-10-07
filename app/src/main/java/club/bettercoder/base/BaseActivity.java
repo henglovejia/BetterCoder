@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public abstract class BaseActivity extends FragmentActivity {
     private RelativeLayout rl_title_bar;
     private TextView tv_title, tv_left1;
     private RLBaseHandler mParentHandler;
+    private ProgressBar pb_loading;
     public Dialog mRetryDialog;
     protected Map<SimpleCall, RetryCallInfo> mRetryCallMap = new HashMap<>();
     public static final String ICON_BACK = "&#xe625;";
@@ -102,6 +104,7 @@ public abstract class BaseActivity extends FragmentActivity {
         fl_container = (FrameLayout) mRoot.findViewWithTag("fl_container");
         tv_title = (TextView) mRoot.findViewWithTag("tv_title");
         tv_left1 = (TextView) mRoot.findViewWithTag("tv_left1");
+        pb_loading = (ProgressBar) mRoot.findViewWithTag("pb_loading");
         setLeftText(ICON_BACK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,15 +234,17 @@ public abstract class BaseActivity extends FragmentActivity {
             @Override
             public void onStart() {
                 refreshDialogState();
+                pb_loading.setVisibility(View.VISIBLE);
             }
-
             @Override
             public void onSuccess(Object body) {
                 if (mRetryCallMap.containsKey(call)) {
                     mRetryCallMap.remove(call);
                 }
+                if(mRetryCallMap.size()==0){
+                    pb_loading.setVisibility(View.GONE);
+                }
             }
-
             @Override
             public void onFailure() {
                 if (needRetry && !mRetryCallMap.containsKey(call)) {
@@ -250,7 +255,6 @@ public abstract class BaseActivity extends FragmentActivity {
                     mRetryCallMap.put(call, info);
                 }
             }
-
             @Override
             public void onFinish() {
                 refreshDialogState();
@@ -270,6 +274,7 @@ public abstract class BaseActivity extends FragmentActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
                     mRetryCallMap.clear();
+                    pb_loading.setVisibility(View.GONE);
                 } else {
                     retryCall(mRetryCallMap);
                 }
@@ -278,6 +283,7 @@ public abstract class BaseActivity extends FragmentActivity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 mRetryCallMap.clear();
+                pb_loading.setVisibility(View.GONE);
             }
         });
     }
