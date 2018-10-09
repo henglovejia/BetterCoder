@@ -1,6 +1,13 @@
 package club.bettercoder.questions.po;
 
-public class QuestionItem{
+import java.io.Serializable;
+
+public class QuestionItem implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int itemId;
 
@@ -17,6 +24,8 @@ public class QuestionItem{
 	private String htmlContent;
 	
 	private String questionUuid;
+	
+	private String option;
 
 	public int getItemId() {
 		return itemId;
@@ -80,6 +89,14 @@ public class QuestionItem{
 
 	public void setQuestionUuid(String questionUuid) {
 		this.questionUuid = questionUuid;
+	}
+
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
 	}
 	
 }

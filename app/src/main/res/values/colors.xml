@@ -34,4 +34,7 @@
     <color name="bc_blue">#9ABAFC</color>
     <color name="menu">#F0FFFF</color>
     <color name="question_bc">#FFF3D0</color>
+    <color name="question_item_wait">#FF33B5E5</color>
+    <color name="question_item_right">#FF99CC00</color>
+    <color name="question_item_error">#FFFF4444</color>
 </resources>

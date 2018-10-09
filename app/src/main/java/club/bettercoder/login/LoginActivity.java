@@ -27,17 +27,25 @@ public class LoginActivity extends BaseActivity {
         setTitleId(R.string.sign);
         hideLeft();
     }
+
+    @Override
+    protected void initView() {
+
+    }
+
     public void wxLogin(View view){
         IWXAPI iwxapi = WXAPIFactory.createWXAPI(BaseApplication.sAppContext, APP_ID, true);
         iwxapi.registerApp(APP_ID);
-        if (!iwxapi.isWXAppInstalled()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            final SendAuth.Req req = new SendAuth.Req();
-            req.scope = "snsapi_userinfo";
-            req.state = "wechat_sdk_demo_test";
-            iwxapi.sendReq(req);
-        }
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+//        if (!iwxapi.isWXAppInstalled()) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        } else {
+//            final SendAuth.Req req = new SendAuth.Req();
+//            req.scope = "snsapi_userinfo";
+//            req.state = "wechat_sdk_demo_test";
+//            iwxapi.sendReq(req);
+//        }
     }
 }

@@ -30,7 +30,6 @@ public class TreeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.module_list_tree);
-        treeListVew = (ListView) findViewById(R.id.lv_tree);
         initData();
         treeAdapter = new TreeAdapter(this, R.layout.module_list_item_tree, treeShowList);
         treeListVew.setAdapter(treeAdapter);
@@ -72,8 +71,9 @@ public class TreeActivity extends BaseActivity {
             }
         });
     }
-
-    private void initView() {
+    @Override
+    protected void initView() {
+        treeListVew = (ListView) findViewById(R.id.lv_tree);
         treeListVew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

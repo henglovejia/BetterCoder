@@ -35,7 +35,7 @@ import club.bettercoder.widget.MessageDialog;
  * Created by legend on 18/1/2.
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity{
     private View mRoot;
     private FrameLayout fl_container;
     private RelativeLayout rl_title_bar;
@@ -62,26 +62,19 @@ public abstract class BaseActivity extends FragmentActivity {
     public void setContentView(int layoutResID) {
         mRoot = LayoutInflater.from(this).inflate(R.layout.module_activity_base, null);
         super.setContentView(mRoot);
-        initView();
+        rl_title_bar = (RelativeLayout) mRoot.findViewWithTag("rl_title_bar");
+        fl_container = (FrameLayout) mRoot.findViewWithTag("fl_container");
+        tv_title = (TextView) mRoot.findViewWithTag("tv_title");
+        tv_left1 = (TextView) mRoot.findViewWithTag("tv_left1");
+        pb_loading = (ProgressBar) mRoot.findViewWithTag("pb_loading");
+        setLeftText(ICON_BACK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         addViewToContent(layoutResID);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        mRoot = LayoutInflater.from(this)
-                .inflate(R.layout.module_activity_base, null);
-        super.setContentView(mRoot);
         initView();
-        addViewToContent(view);
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        mRoot = LayoutInflater.from(this)
-                .inflate(R.layout.module_activity_base, null);
-        super.setContentView(mRoot);
-        initView();
-        addViewToContent(view, params);
     }
 
     private void addViewToContent(View view, ViewGroup.LayoutParams params) {
@@ -99,19 +92,7 @@ public abstract class BaseActivity extends FragmentActivity {
         addViewToContent(view, params);
     }
 
-    private void initView() {
-        rl_title_bar = (RelativeLayout) mRoot.findViewWithTag("rl_title_bar");
-        fl_container = (FrameLayout) mRoot.findViewWithTag("fl_container");
-        tv_title = (TextView) mRoot.findViewWithTag("tv_title");
-        tv_left1 = (TextView) mRoot.findViewWithTag("tv_left1");
-        pb_loading = (ProgressBar) mRoot.findViewWithTag("pb_loading");
-        setLeftText(ICON_BACK).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
+    protected abstract void initView();
 
     protected void setTitleString(String title) {
         tv_title.setText(title);

@@ -7,4 +7,8 @@ import club.bettercoder.base.BaseActivity;
  */
 
 public class RegisterActivity extends BaseActivity {
+    @Override
+    protected void initView() {
+
+    }
 }

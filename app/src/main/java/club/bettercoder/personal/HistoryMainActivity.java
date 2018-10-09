@@ -11,14 +11,20 @@ import club.bettercoder.questions.api.QuestionApi;
 import club.bettercoder.questions.model.SubjectBean;
 import club.bettercoder.questions.model.SubjectModel;
 
-public class HistoryErrorActivity extends BaseActivity {
+public class HistoryMainActivity extends BaseActivity {
     private static String TAG = "HistoryErrorActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.module_activity_history_error);
+        setContentView(R.layout.module_activity_history);
         setTitleId(R.string.history_error_title);
     }
+
+    @Override
+    protected void initView() {
+
+    }
+
     public void Background(View view){
         SubjectBean bean = new SubjectBean();
         addRequest(getService(QuestionApi.class).getSubject(bean), new BaseCallBack<SubjectModel>() {

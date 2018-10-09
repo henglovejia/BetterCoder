@@ -7,7 +7,6 @@ import club.bettercoder.questions.po.DbQuestion;
 
 public class QuestionModel extends BaseModel {
     public List<DbQuestion> questions;
-    public Integer totalNum;
     public Integer number;
     public Integer historyId;
 }

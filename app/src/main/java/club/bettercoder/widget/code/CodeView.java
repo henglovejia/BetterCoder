@@ -213,7 +213,7 @@ public class CodeView extends WebView {
     public CodeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.theme = CodeViewTheme.DOCCO;
-        this.encode = "utf-8";
+        this.encode = "UTF-8";
         getSettings().setJavaScriptEnabled(true);
     }
 
@@ -278,8 +278,8 @@ public class CodeView extends WebView {
     }
 
     public void showCode(String code) {
-        Code ccode = new Code(code);
-        showCode(ccode);
+        Code cCode = new Code(code);
+        showCode(cCode);
     }
 
     public void showCode(String code, Code.Language language) {

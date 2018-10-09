@@ -22,11 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".personal.HistoryErrorActivity" />
+        <activity android:name=".personal.HistoryMainActivity" />
         <activity android:name=".login.wxapi.WXEntryActivity" />
         <activity android:name=".main.MainActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".questions.TreeActivity"/>
+        <activity android:name=".questions.DoQuestionMainActivity"/>
     </application>
 
 </manifest>

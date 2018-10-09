@@ -55,4 +55,9 @@ public class SplashActivity extends BaseActivity {
             mHandler.sendEmptyMessageDelayed(HAS_LOGIN,SPLASH_TIME);
         }
     }
+
+    @Override
+    protected void initView() {
+
+    }
 }

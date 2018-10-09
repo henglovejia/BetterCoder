@@ -29,6 +29,11 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     public void onReq(BaseReq baseReq) {
 
     }

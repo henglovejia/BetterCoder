@@ -29,7 +29,7 @@ import club.bettercoder.widget.MessageDialog;
  * Created by heng on 18/9/13
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener{
     private String TAG = "BcBaseFragment";
     private RLBaseHandler mParentHandler;
     public Dialog mRetryDialog;
@@ -197,7 +197,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected Dialog getRetryDialog(final DialogInterface.OnClickListener onButtonListener, DialogInterface.OnCancelListener onCancelListener) {
-        final MessageDialog dialog = new MessageDialog(MainActivity.sActivityContext);
+        final MessageDialog dialog = new MessageDialog(getActivity());
         dialog.setMessage(R.string.app_dialog_retry_msg);
         dialog.setPositiveButton(R.string.app_dialog_retry_positive_btn);
         dialog.setOnButtonClickListener(new MessageDialog.OnButtonClickListener() {
