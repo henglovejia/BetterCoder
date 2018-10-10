@@ -26,8 +26,8 @@ public class RequestManager {
     private OkHttpClient mClient;
     private PersistentCookieJar mCookieJar;
     private Map<String, Retrofit> mRetrofitMap = new HashMap<>();
-        private static final String BASE_HOST = "http://192.168.31.84:8080/BetterCoder/";
-//    private static final String BASE_HOST = "https://wechat.bettercoder.club/";
+//        private static final String BASE_HOST = "http://192.168.31.84:8080/BetterCoder/";
+    private static final String BASE_HOST = "https://wechat.bettercoder.club/";
     private static int DEFAULT_NETWORK_TIMEOUT = 5;
 
     private RequestManager(Context context) {

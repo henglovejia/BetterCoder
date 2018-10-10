@@ -283,8 +283,8 @@ public class CodeView extends WebView {
     }
 
     public void showCode(String code, Code.Language language) {
-        Code ccode = new Code(code, language);
-        showCode(ccode);
+        Code cCode = new Code(code, language);
+        showCode(cCode);
     }
 
     public int getCodeBackgroundColor() {
@@ -298,6 +298,8 @@ public class CodeView extends WebView {
     private void addCode(Code code) {
         document.body().appendElement("pre").appendElement("code").text(code.getCode());
     }
+
+
 
     private static final String BASE_HTML =
             "<!DOCTYPE html>\n" +

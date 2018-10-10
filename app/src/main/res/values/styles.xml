@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="recommend_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -17,6 +18,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2px</item>
         <item name="android:background">@color/bc_widget</item>
+    </style>
+
+    <style name="module_question_direction">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:background">@color/question_direction</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:onClick">chooseQuestionDirection</item>
     </style>
 
     <style name="module_question_items">
@@ -31,11 +43,23 @@
         <item name="android:background">@android:color/holo_blue_light</item>
         <item name="android:clickable">true</item>
         <item name="android:onClick">chooseItem</item>
+        <item name="android:visibility">gone</item>
         <!--<item name="android:singleLine">true</item>-->
         <!--<item name="android:ellipsize">marquee</item>-->
         <!--<item name="android:marqueeRepeatLimit">2</item>-->
         <!--<item name="android:focusable">true</item>-->
         <!--<item name="android:focusableInTouchMode">true</item>-->
+    </style>
+
+    <style name="module_question_analyse_and_answer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textColor">@color/common_black</item>
+        <item name="android:background">@color/common_white</item>
+        <item name="android:visibility">gone</item>
     </style>
 
 </resources>
