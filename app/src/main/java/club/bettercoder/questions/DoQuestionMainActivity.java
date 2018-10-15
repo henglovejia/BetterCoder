@@ -59,35 +59,8 @@ public class DoQuestionMainActivity extends BaseActivity {
         });
     }
 
-    private void getQuestion() {
-        if (BaseApplication.continueExercise) {
-            addRequest(getService(QuestionApi.class).continueQuestions(), new BaseCallBack<QuestionModel>() {
-                @Override
-                public void onSuccess200(QuestionModel model) {
-                    fillQuestion(model);
-                }
-            });
-        } else {
-            addRequest(getService(QuestionApi.class).startQuestions(new QuestionBean(knowledgeUuid, subject)), new BaseCallBack<QuestionModel>() {
-                @Override
-                public void onSuccess200(QuestionModel model) {
-                    fillQuestion(model);
-                }
-            });
-        }
-    }
-
     public void doExercise(){
 
-    }
-
-    public void fillQuestion(QuestionModel model) {
-        question = model.questions.get(0);
-        questionContent.showCodeHtmlByClass("<p>" + model.number + "、" + question.getqContent().getHtmlContent().substring(3), "brush");
-        questionItemA.setText(parseHtml2Text(question.getItemList().get(0).getHtmlContent()));
-        questionItemB.setText(parseHtml2Text(question.getItemList().get(1).getHtmlContent()));
-        questionItemC.setText(parseHtml2Text(question.getItemList().get(2).getHtmlContent()));
-        questionItemD.setText(parseHtml2Text(question.getItemList().get(3).getHtmlContent()));
     }
 
     public void chooseItem(View view) {
@@ -138,6 +111,33 @@ public class DoQuestionMainActivity extends BaseActivity {
                 getQuestion();
                 break;
         }
+    }
+
+    private void getQuestion() {
+        if (BaseApplication.continueExercise) {
+            addRequest(getService(QuestionApi.class).continueQuestions(), new BaseCallBack<QuestionModel>() {
+                @Override
+                public void onSuccess200(QuestionModel model) {
+                    fillQuestion(model);
+                }
+            });
+        } else {
+            addRequest(getService(QuestionApi.class).startQuestions(new QuestionBean(knowledgeUuid, subject)), new BaseCallBack<QuestionModel>() {
+                @Override
+                public void onSuccess200(QuestionModel model) {
+                    fillQuestion(model);
+                }
+            });
+        }
+    }
+
+    public void fillQuestion(QuestionModel model) {
+        question = model.questions.get(0);
+        questionContent.showCodeHtmlByClass("<p>" + model.number + "、" + question.getqContent().getHtmlContent().substring(3), "brush");
+        questionItemA.setText(parseHtml2Text(question.getItemList().get(0).getHtmlContent()));
+        questionItemB.setText(parseHtml2Text(question.getItemList().get(1).getHtmlContent()));
+        questionItemC.setText(parseHtml2Text(question.getItemList().get(2).getHtmlContent()));
+        questionItemD.setText(parseHtml2Text(question.getItemList().get(3).getHtmlContent()));
     }
 
     private String parseHtml2Text(String htmlText) {

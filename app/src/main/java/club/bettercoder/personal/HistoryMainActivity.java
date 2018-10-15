@@ -8,7 +8,6 @@ import club.bettercoder.R;
 import club.bettercoder.base.BaseActivity;
 import club.bettercoder.base.BaseCallBack;
 import club.bettercoder.questions.api.QuestionApi;
-import club.bettercoder.questions.model.SubjectBean;
 import club.bettercoder.questions.model.SubjectModel;
 
 public class HistoryMainActivity extends BaseActivity {
@@ -26,8 +25,7 @@ public class HistoryMainActivity extends BaseActivity {
     }
 
     public void Background(View view){
-        SubjectBean bean = new SubjectBean();
-        addRequest(getService(QuestionApi.class).getSubject(bean), new BaseCallBack<SubjectModel>() {
+        addRequest(getService(QuestionApi.class).getSubject(), new BaseCallBack<SubjectModel>() {
             @Override
             public void onSuccess200(SubjectModel body) {
                 Log.d(TAG,body.valid_knowledge_subjects[0].getName());

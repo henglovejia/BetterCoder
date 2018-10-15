@@ -1,5 +1,6 @@
 package club.bettercoder.personal;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,7 +34,8 @@ public class PersonalMainFragment extends BaseFragment{
                 Toast.makeText(getActivity(), "进入历史错题", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.knowledge_diagram:
-                Toast.makeText(getActivity(), "进入知识图谱", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),KnowledgeDistributionMainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.share_data:
                 Toast.makeText(getActivity(), "分享数据", Toast.LENGTH_SHORT).show();
